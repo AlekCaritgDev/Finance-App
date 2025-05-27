@@ -1,0 +1,31 @@
+<div class="container mt-6">
+    <!-- Título -->
+    <h1 class="text-center mb-4">
+        <h1 class="text-center mb-4">
+            <span style="color: #0D99FF;">Finance </span>
+            <span style="color: #FFBFE8;">App</span> <!-- Equivalente a pink-600 -->
+          </h1>
+    </h1>
+    
+    <!-- Subtítulo -->
+    <h3 class="text-center mb-4">Login</h3>
+  
+    <!-- Formulario de login -->
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="user.email" name="email" id="email" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="user.password" name="password" id="password" required />
+      </div>
+      <button class="btn btn-primary w-100" style="background-color: #FF1B8D;" [disabled]="form.invalid">Iniciar sesión</button>
+    </form>
+  
+    <!-- Enlace de registro -->
+    <div class="text-center mt-4">
+      <p>¿No tienes cuenta? <a [routerLink]="'/register'" class="text-decoration-none">Regístrate aquí</a></p>
+    </div>
+  </div>
+  

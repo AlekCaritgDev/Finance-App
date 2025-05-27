@@ -1,0 +1,41 @@
+<div class="container my-5">
+    <!-- Título -->
+    <h2 class="text-center mb-4 fw-bold" style="color: #007bff;">Crear una Nueva Cuenta</h2>
+
+    <!-- Formulario para crear cuenta -->
+    <form (ngSubmit)="crearCuenta()" class="p-4 shadow rounded-4 border bg-white"
+        style="max-width: 600px; margin: auto; border-color: #FFBFE8;">
+        <div class="mb-3">
+            <label for="nombre" class="form-label" style="color: #000000;">Nombre de la cuenta</label>
+            <input id="nombre" [(ngModel)]="nuevaCuenta.nombre" name="nombre" class="form-control border-2" type="text"
+                placeholder="Ej: Cuenta de ahorro" required style="border-color: #FFBFE8;" />
+        </div>
+
+        <div class="mb-3">
+            <label for="tipo" class="form-label" style="color: #000000;">Tipo de cuenta</label>
+            <select id="tipo" [(ngModel)]="nuevaCuenta.tipo" name="tipo" class="form-select border-2"
+                style="border-color: #FFBFE8;">
+                <option value="Ahorros">Ahorros</option>
+                <option value="Corriente">Corriente</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="saldo" class="form-label" style="color: #000000;">Saldo inicial</label>
+            <input id="saldo" [(ngModel)]="nuevaCuenta.saldo" name="saldo" class="form-control border-2" type="number"
+                placeholder="0.00" min="0" step="0.01" required style="border-color: #FFBFE8;" />
+        </div>
+
+        <div class="mb-3">
+            <label for="moneda" class="form-label" style="color: #000000;">Moneda</label>
+            <input id="moneda" [(ngModel)]="nuevaCuenta.moneda" name="moneda" class="form-control border-2" type="text"
+                value="EUR" readonly style="background-color: #fef6fb; border-color: #FFBFE8;" />
+        </div>
+
+        <!-- Botón de creación de cuenta -->
+        <button type="submit" [disabled]="!nuevaCuenta.nombre || !nuevaCuenta.saldo" class="btn w-100 mt-2 rounded-pill"
+            style="background-color: #ff84d2; color: white; font-weight: bold;">
+            <i class="bi bi-plus-circle me-2"></i>Crear cuenta
+        </button>
+    </form>
+</div>

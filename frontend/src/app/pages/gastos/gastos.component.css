@@ -1,0 +1,10 @@
+.btn-pink {
+    background-color: #ff007f;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+  .btn-pink:hover {
+    background-color: #e60073;
+  }
+  

@@ -1,0 +1,222 @@
+<div class="container my-5">
+  <!-- Accounts Carousel + Create Account Button -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="flex-grow-1 me-3">
+      <div id="carouselCuentas" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div *ngFor="let cuenta of cuentas; let i = index" class="carousel-item" [class.active]="i === 0">
+            <div class="card text-white mb-2 account-card">
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between mb-3">
+                  <div>
+                    <h5 class="card-title fw-bold mb-1">{{ cuenta.nombre }}</h5>
+                    <p class="card-text small opacity-75 mb-0">
+                      <span class="me-2">••••</span>
+                      <span class="me-2">••••</span>
+                      <span class="me-2">••••</span>
+                      <span>4553</span>
+                    </p>
+                  </div>
+                  <div>
+                    <i class="bi bi-credit-card-2-front fs-4"></i>
+                  </div>
+                </div>
+                <h2 class="display-6 fw-bold mb-1">{{ cuenta.saldo }} {{ cuenta.moneda }}</h2>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-white opacity-75">{{ cuenta.tipo }}</small>
+                  <small class="badge bg-light text-dark rounded-pill px-3 py-2">Activa</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carousel Navigation -->
+        <div class="carousel-indicators position-relative mt-2">
+          <button *ngFor="let cuenta of cuentas; let i = index" 
+                  type="button" 
+                  [class.active]="i === 0" 
+                  data-bs-target="#carouselCuentas" 
+                  [attr.data-bs-slide-to]="i"
+                  class="bg-primary"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Account Button -->
+    <a routerLink="/crear-cuenta" class="btn btn-create d-flex align-items-center justify-content-center">
+      <i class="bi bi-plus-lg"></i>
+    </a>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="d-flex justify-content-around mb-4 flex-wrap gap-2">
+    <button class="btn action-btn" (click)="verGastos()">
+      <i class="bi bi-graph-down me-2"></i>
+      Gastos
+    </button>
+    <button class="btn action-btn" (click)="verTransferencias()">
+      <i class="bi bi-arrow-left-right me-2"></i>
+      Transferencias
+    </button>
+  </div>
+
+  <!-- Expenses List -->
+  <div class="card shadow-sm border-0 rounded-4 mb-4" *ngIf="mostrarGastos">
+    <div class="card-header bg-white border-0 pt-3 pb-0">
+      <h5 class="fw-bold text-primary">Gastos Recientes</h5>
+    </div>
+    <div class="card-body p-0">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item border-0 py-3 px-4 d-flex justify-content-between align-items-center"
+            *ngFor="let gasto of gastos">
+          <div class="d-flex align-items-center">
+            <div class="category-icon me-3 d-flex align-items-center justify-content-center">
+              <i class="bi" [ngClass]="obtenerNombreCategoria(gasto.categoria_id)"></i>
+            </div>
+            <div>
+              <strong class="d-block">{{ gasto.descripcion }}</strong>
+              <small class="text-muted">{{ obtenerNombreCategoria(gasto.categoria_id) }}</small>
+              <small class="d-block">{{ gasto.fecha | date: 'dd/MM/yyyy' }}</small>
+            </div>
+          </div>
+          <span class="text-danger fw-bold">-{{ gasto.monto }} €</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Transfers List -->
+  <div class="card shadow-sm border-0 rounded-4" *ngIf="mostrarTransferencias">
+    <div class="card-header bg-white border-0 pt-3 pb-0">
+      <h5 class="fw-bold text-primary">Transferencias Recientes</h5>
+    </div>
+    <div class="card-body p-0">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item border-0 py-3 px-4 d-flex justify-content-between align-items-center"
+            *ngFor="let trans of transferencias">
+          <div class="d-flex align-items-center">
+            <div class="transfer-icon me-3 d-flex align-items-center justify-content-center">
+              <i class="bi bi-arrow-down-up"></i>
+            </div>
+            <div>
+              <strong class="d-block">{{ trans.descripcion || 'Transferencia' }}</strong>
+              <small class="text-muted d-block">
+                <span class="d-block">De: {{ obtenerNombreCuenta(trans.cuenta_origen_id) }}</span>
+                <span class="d-block">A: {{ obtenerNombreCuenta(trans.cuenta_destino_id) }}</span>
+                <span class="d-block">{{ trans.fecha | date: 'dd/MM/yyyy' }}</span>
+              </small>
+            </div>
+          </div>
+          <span class="text-success fw-bold">+{{ trans.monto }} €</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Account Card Styling */
+  .account-card {
+    background: linear-gradient(135deg, #ffb1ff, #4F46E5);
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(65, 88, 208, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .account-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(65, 88, 208, 0.2);
+  }
+  
+  /* Create Account Button */
+  .btn-create {
+    background: linear-gradient(135deg, #ffb1ff, #8B5CF6);
+    color: white;
+    font-weight: bold;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-create:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4);
+    color: white;
+  }
+  
+  .btn-create i {
+    font-size: 1.5rem;
+  }
+  
+  /* Action Buttons */
+  .action-btn {
+    background-color: #EEF2FF;
+    color: #4F46E5;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    width: 150px;
+    box-shadow: 0 2px 5px rgba(79, 70, 229, 0.1);
+  }
+  
+  .action-btn:hover {
+    background-color: #E0E7FF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.15);
+  }
+  
+  /* Category and Transfer Icons */
+  .category-icon, .transfer-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #F3F4F6;
+    color: #6366F1;
+  }
+  
+  .transfer-icon {
+    background-color: #EEF2FF;
+  }
+  
+  /* List Items */
+  .list-group-item {
+    transition: background-color 0.2s ease;
+  }
+  
+  .list-group-item:hover {
+    background-color: #F9FAFB;
+  }
+  
+  /* Carousel Indicators */
+  .carousel-indicators {
+    margin-bottom: 0;
+  }
+  
+  .carousel-indicators button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin: 0 4px;
+    opacity: 0.5;
+  }
+  
+  .carousel-indicators button.active {
+    opacity: 1;
+  }
+  
+  /* Rounded Corners */
+  .rounded-4 {
+    border-radius: 16px;
+  }
+  
+  /* Card Shadows */
+  .shadow-sm {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  }
+</style>

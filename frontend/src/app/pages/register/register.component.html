@@ -1,0 +1,43 @@
+<div class="container mt-5">
+    <!-- Título -->
+    <h1 class="text-center mb-4">
+        <span style="color: #0D99FF;">Finance </span>
+        <span style="color: #FFBFE8;">App</span> <!-- Equivalente a pink-600 -->
+      </h1>
+  
+    <!-- Subtítulo -->
+    <h3 class="text-center mb-4">Registro</h3>
+  
+    <!-- Formulario de registro -->
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="user.nombre" name="nombre" id="nombre" required />
+      </div>
+  
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="user.email" name="email" id="email" required />
+      </div>
+  
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="user.password" name="password" id="password" required />
+      </div>
+  
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="user.confirmPassword" name="confirmPassword" id="confirmPassword" required />
+      </div>
+  
+      <button class="btn btn-primary w-100" style="background-color: #FF1B8D; border: none;" [disabled]="form.invalid">
+        Registrarse
+      </button>
+    </form>
+  
+    <!-- Enlace de login -->
+    <div class="text-center mt-4">
+      <p>¿Ya tienes una cuenta? <a [routerLink]="'/login'" class="text-decoration-none">Inicia sesión</a></p>
+    </div>
+  </div>
+  

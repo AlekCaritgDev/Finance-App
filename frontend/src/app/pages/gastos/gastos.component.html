@@ -1,0 +1,53 @@
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-4" style="width: 500px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      <h4 class="text-center mb-4" style="color: #00aaff; font-weight: bold;">Agregar Gasto</h4>
+  
+      <form (ngSubmit)="crearGasto()" #gastoForm="ngForm">
+  
+        <!-- Monto -->
+        <div class="mb-3">
+          <label for="monto" class="form-label text-muted small">Monto (€)</label>
+          <div class="input-group">
+            <span class="input-group-text">€</span>
+            <input type="number" id="monto" name="monto" [(ngModel)]="nuevoGasto.monto"
+                   class="form-control" placeholder="0.00" required />
+          </div>
+          <div *ngIf="gastoForm.submitted && !nuevoGasto.monto" class="text-danger">El monto es obligatorio.</div>
+        </div>
+  
+        <!-- Descripción -->
+        <div class="mb-3">
+          <label for="descripcion" class="form-label text-muted small">Descripción</label>
+          <input type="text" id="descripcion" name="descripcion" [(ngModel)]="nuevoGasto.descripcion"
+                 class="form-control" placeholder="Supermercado" required />
+          <div *ngIf="gastoForm.submitted && !nuevoGasto.descripcion" class="text-danger">La descripción es obligatoria.</div>
+        </div>
+  
+        <!-- Categoría -->
+        <div class="mb-3">
+          <label for="categoria_id" class="form-label text-muted small">Categoría</label>
+          <select id="categoria_id" name="categoria_id" [(ngModel)]="nuevoGasto.categoria_id"
+                  class="form-select" required>
+            <option [ngValue]="null" disabled selected>Selecciona una categoría</option>
+            <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
+          </select>
+          <div *ngIf="gastoForm.submitted && !nuevoGasto.categoria_id" class="text-danger">La categoría es obligatoria.</div>
+        </div>
+  
+        <!-- Fecha -->
+        <div class="mb-3">
+          <label for="fecha" class="form-label text-muted small">Fecha</label>
+          <input type="date" id="fecha" name="fecha" [(ngModel)]="nuevoGasto.fecha"
+                 class="form-control" required />
+          <div *ngIf="gastoForm.submitted && !nuevoGasto.fecha" class="text-danger">La fecha es obligatoria.</div>
+        </div>
+  
+        <!-- Botón -->
+        <button type="submit" class="btn w-100" style="background-color: #ff007f; color: white; font-weight: bold; border-radius: 12px;" [disabled]="!gastoForm.valid">
+          Agregar Gasto
+        </button>
+  
+      </form>
+    </div>
+  </div>
+  

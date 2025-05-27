@@ -1,0 +1,17 @@
+.btn-pink {
+    background-color: #ffc0cb;
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+  }
+  
+  .btn-pink:hover {
+    background-color: #ffa6c9;
+    color: #000;
+  }
+
+  .sidebar{ 
+    background-color: #000;
+  }
+  

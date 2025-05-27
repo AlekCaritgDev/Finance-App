@@ -1,0 +1,62 @@
+<div class="container mt-4">
+    <h2 class="text-primary text-center">Categorías</h2>
+    <div class="row row-cols-2 row-cols-md-3 g-4 mt-3">
+        <div class="col" *ngFor="let cat of categorias">
+            <div class="card text-center border-primary">
+                <div class="card-body">
+                    <!-- <i [class]="cat.icono + ' fa-2x text-primary'"></i> -->
+                    <p class="fw-bold mt-2">{{ cat.nombre }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón para crear -->
+        <div class="col">
+            <div class="card text-center border-primary border-dashed" (click)="abrirModal()">
+                <div class="card-body">
+                    <i class='bx bx-plus' style="font-size: 3rem; color: #FFBFE8;"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal de Crear Categoría -->
+    <div class="modal fade" id="crearModal" tabindex="-1" role="dialog" aria-labelledby="crearModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearModalLabel">Crear Categoría</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class='bx bx-x'></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="crearCategoriaForm" (ngSubmit)="crearcategoria()">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" formControlName="nombre" required />
+                            <div *ngIf="crearCategoriaForm.controls['nombre'].invalid && crearCategoriaForm.controls['nombre'].touched"
+                                class="text-danger">
+                                El nombre es obligatorio.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label">Tipo</label>
+                            <input type="text" class="form-control" id="tipo" formControlName="tipo" required />
+                            <div *ngIf="crearCategoriaForm.controls['tipo'].invalid && crearCategoriaForm.controls['tipo'].touched"
+                                class="text-danger">
+                                El tipo es obligatorio.
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="crearCategoriaForm.invalid">
+                                Crear Categoría
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,57 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card p-4" style="width: 500px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <h4 class="text-center mb-4" style="color: #007bff; font-weight: bold;">Transferencia</h4>
+
+    <form [formGroup]="transferenciaForm" (ngSubmit)="crearTransferencia()">
+
+      <!-- Monto -->
+      <div class="mb-3">
+        <label for="monto" class="form-label text-muted small">Monto (€)</label>
+        <div class="input-group">
+          <span class="input-group-text">€</span>
+          <input type="number" id="monto" formControlName="monto" class="form-control" placeholder="0.00" />
+        </div>
+        <div *ngIf="transferenciaForm.get('monto')?.touched && transferenciaForm.get('monto')?.invalid" class="text-danger">
+          El monto es obligatorio y debe ser mayor que cero.
+        </div>
+      </div>
+
+      <!-- Cuenta Origen -->
+      <div class="mb-3">
+        <label for="cuenta_origen_id" class="form-label text-muted small">Cuenta Origen</label>
+        <select id="cuenta_origen_id" class="form-select" formControlName="cuenta_origen_id">
+          <option [ngValue]="null" disabled>Selecciona cuenta origen</option>
+          <option *ngFor="let cuenta of cuentas" [value]="cuenta.id">{{ cuenta.nombre }}</option>
+          <option value="banco">Banco</option>
+        </select>
+        <div *ngIf="transferenciaForm.get('cuenta_origen_id')?.touched && transferenciaForm.get('cuenta_origen_id')?.invalid" class="text-danger">
+          Debes seleccionar una cuenta origen.
+        </div>
+      </div>
+
+      <!-- Cuenta Destino -->
+      <div class="mb-3">
+        <label for="cuenta_destino_id" class="form-label text-muted small">Cuenta Destino</label>
+        <select id="cuenta_destino_id" class="form-select" formControlName="cuenta_destino_id">
+          <option [ngValue]="null" disabled>Selecciona cuenta destino</option>
+          <option *ngFor="let cuenta of cuentas" [value]="cuenta.id">{{ cuenta.nombre }}</option>
+        </select>
+        <div *ngIf="transferenciaForm.get('cuenta_destino_id')?.touched && transferenciaForm.get('cuenta_destino_id')?.invalid" class="text-danger">
+          Debes seleccionar una cuenta destino.
+        </div>
+      </div>
+
+      <!-- Descripción -->
+      <div class="mb-3">
+        <label for="descripcion" class="form-label text-muted small">Descripción (opcional)</label>
+        <input type="text" id="descripcion" formControlName="descripcion" class="form-control" placeholder="Ej. Transferencia mensual" />
+      </div>
+
+      <!-- Botón -->
+      <button type="submit" class="btn w-100" style="background-color: #ff007f; color: white; font-weight: bold; border-radius: 12px;"
+              [disabled]="transferenciaForm.invalid">
+        Realizar Transferencia
+      </button>
+    </form>
+  </div>
+</div>
