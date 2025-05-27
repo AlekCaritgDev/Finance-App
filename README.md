@@ -57,7 +57,7 @@ El proyecto se encuentra **terminado**, aunque puede contener errores menores y 
    - Importa el script SQL para crear la base de datos y tablas:
 
      ```bash
-     mysql -u tu_usuario -p < database/finanzas_app.sql
+     mysql -u tu_usuario -p < Database/Finance-App.sql
      ```
 
 2. Instala las dependencias:
